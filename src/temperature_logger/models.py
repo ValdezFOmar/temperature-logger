@@ -15,3 +15,16 @@ class User(AbstractUser):
 def create_auth_api_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+
+
+class DateLog(models.Model):
+    date = models.DateField(unique=True)
+
+
+class TemperatureReading(models.Model):
+    temperature = models.FloatField()
+    time = models.TimeField(unique=True)
+    date = models.ForeignKey(DateLog, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ["time", "date"]
