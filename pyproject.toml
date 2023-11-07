@@ -1,0 +1,20 @@
+[tool.mypy]
+plugins = ["mypy_django_plugin.main"]
+
+
+[tool.django-stubs]
+django_settings_module = "picoserver.settings"
+
+
+[tool.djlint]
+profile = "django"
+files = [
+    "src/temperature_logger/templates/",
+]
+ignore = "H030,H031"
+close_void_tags = true
+indent = 2
+max_blank_lines = 2
+max_line_length = 100
+blank_line_before_tag = "load,extends,include,block"
+blank_line_after_tag = "load,extends,include,endblock"
