@@ -1,0 +1,40 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Temperature Chart {{ selected_date.date }}
+{% endblock title %}
+
+{% block content %}
+  <main>
+    <h1>Temperature Chart {{ selected_date.date }}</h1>
+    <nav>
+      <a href="{% url 'home' %}">Home</a>
+    </nav>
+
+    <aside>
+      <ol>
+        {% for date_log in date_logs %}
+          <li>
+            <a href="{% url 'temperatures' date_log.date.isoformat %}">{{ date_log.date }}</a>
+          </li>
+        {% endfor %}
+      </ol>
+    </aside>
+
+    <article>chart goes here...
+      <ol>
+        {% for reading in readings %}
+          <li>
+            label
+            <ul>
+              <li>Temperature: {{ reading.temperature }} °C</li>
+              <li>Time: {{ reading.time }}</li>
+            </ul>
+          </li>
+        {% endfor %}
+      </ol>
+    </article>
+
+    <script>console.log({{ selected_date.date.year }})</script>
+  </main>
+{% endblock content %}

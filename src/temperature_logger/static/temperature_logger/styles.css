@@ -2,3 +2,7 @@
   background-color: #1B1D1E;
   color: #B6C9BD;
 }
+
+a {
+  color: hsl(120, 60%, 70%);
+}
