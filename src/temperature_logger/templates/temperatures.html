@@ -21,20 +21,43 @@
       </ol>
     </aside>
 
-    <article>chart goes here...
-      <ol>
-        {% for reading in readings %}
-          <li>
-            label
-            <ul>
-              <li>Temperature: {{ reading.temperature }} °C</li>
-              <li>Time: {{ reading.time }}</li>
-            </ul>
-          </li>
-        {% endfor %}
-      </ol>
+    <article>
+      <div class="chart-container">
+        <canvas id="myChart"></canvas>
+      </div>
     </article>
 
-    <script>console.log({{ selected_date.date.year }})</script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById('myChart');
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: [
+            {% for reading in readings  %}
+              '{{ reading.time }}',
+            {% endfor %}
+          ],
+          datasets: [{
+            label: 'Temperature in Celsius (°C)',
+            data: [
+              {% for reading in readings  %}
+                {{ reading.temperature }},
+              {% endfor %}
+            ],
+            borderWidth: 2,
+            borderColor: 'hsl(120, 60%, 45%)',
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: false
+            }
+          }
+        }
+      });
+    </script>
   </main>
 {% endblock content %}

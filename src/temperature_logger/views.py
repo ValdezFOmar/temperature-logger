@@ -15,7 +15,7 @@ def homepage(request):
 def temperatures_chart(request, date):
     date_log = DateLog.objects.get(date=date)
     dates = DateLog.objects.exclude(date=date).order_by("-date")
-    readings = TemperatureReading.objects.filter(date=date_log.id).order_by("-time")  # type: ignore
+    readings = TemperatureReading.objects.filter(date=date_log.id).order_by("time")  # type: ignore
 
     context = {
         "selected_date": date_log,

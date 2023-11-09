@@ -1,8 +1,32 @@
+/*
 :root {
   background-color: #1B1D1E;
   color: #B6C9BD;
 }
+*/
+
+:root {
+  font-size: 10px;
+  font-family: sans-serif;
+}
+
+body {
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+*, 
+::before,
+::after {
+  font-size: 1.8rem;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 3rem;
+}
 
 a {
-  color: hsl(120, 60%, 70%);
+  color: hsl(120, 60%, 45%);
+  font-weight: bold;
 }
