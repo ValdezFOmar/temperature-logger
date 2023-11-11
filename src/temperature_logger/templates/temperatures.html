@@ -1,12 +1,12 @@
 {% extends "master.html" %}
 
 {% block title %}
-  Temperature Chart {{ selected_date.date }}
+  Temperature Chart for {{ selected_date.date|date:"M dS, Y" }}
 {% endblock title %}
 
 {% block content %}
   <main>
-    <h1>Temperature Chart {{ selected_date.date }}</h1>
+    <h1>Temperature Chart for {{ selected_date.date|date:"F dS, Y" }}</h1>
     <nav>
       <a href="{% url 'home' %}">Home</a>
     </nav>
@@ -21,14 +21,15 @@
       </ol>
     </aside>
 
-    <article>
-      <div class="chart-container">
-        <canvas id="myChart"></canvas>
-      </div>
-    </article>
+    {% if readings %}
+      <article>
+        <div class="chart-container">
+          <canvas id="myChart"></canvas>
+        </div>
+      </article>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
       const ctx = document.getElementById('myChart');
 
       new Chart(ctx, {
@@ -60,6 +61,9 @@
           maintainAspectRatio: false
         }
       });
-    </script>
+      </script>
+    {% else %}
+      <p>There is no readings for this date at this moment.</p>
+    {% endif %}
   </main>
 {% endblock content %}

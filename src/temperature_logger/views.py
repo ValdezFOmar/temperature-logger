@@ -1,25 +1,31 @@
+from datetime import date
+
 from django.shortcuts import render
 
 from .models import DateLog, TemperatureReading
 
 
 def homepage(request):
-    most_recent_date = DateLog.objects.order_by("-date")[0]
-    date = most_recent_date.date.isoformat()
+    most_recent_date = DateLog.objects.order_by("-date").first()
+
+    if most_recent_date is None:
+        most_recent_date = DateLog.objects.create(date=date.today())
+
+    date_iso = most_recent_date.date.isoformat()
     context = {
-        "date": date,
+        "date": date_iso,
     }
     return render(request, "home.html", context)
 
 
 def temperatures_chart(request, date):
-    date_log = DateLog.objects.get(date=date)
-    dates = DateLog.objects.exclude(date=date).order_by("-date")
-    readings = TemperatureReading.objects.filter(date=date_log.id).order_by("time")  # type: ignore
+    selected_date = DateLog.objects.get(date=date)
+    date_logs = DateLog.objects.order_by("-date")  # .exclude(date=date)
+    readings = TemperatureReading.objects.filter(date=selected_date.id).order_by("time")  # type: ignore
 
     context = {
-        "selected_date": date_log,
-        "date_logs": dates,
+        "selected_date": selected_date,
+        "date_logs": date_logs,
         "readings": readings,
     }
     return render(request, "temperatures.html", context)
