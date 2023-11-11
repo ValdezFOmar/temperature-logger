@@ -1,0 +1,27 @@
+[
+    {
+        "date": {
+            "year": 2023,
+            "month": 11,
+            "day": 8
+        },
+        "readings": [
+            {
+                "temperature": 26.54,
+                "time": {
+                    "hour": 14,
+                    "minutes": 32,
+                    "seconds": 23
+                }
+            },
+            {
+                "temperature": 27.54,
+                "time": {
+                    "hour": 14,
+                    "minutes": 34,
+                    "seconds": 16
+                }
+            }
+        ]
+    }
+]

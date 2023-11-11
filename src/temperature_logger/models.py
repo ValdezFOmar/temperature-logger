@@ -23,7 +23,7 @@ class DateLog(models.Model):
 
 class TemperatureReading(models.Model):
     temperature = models.FloatField()
-    time = models.TimeField(unique=True)
+    time = models.TimeField()
     date = models.ForeignKey(DateLog, on_delete=models.CASCADE)
 
     class Meta:
