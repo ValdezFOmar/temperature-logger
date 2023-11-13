@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -77,6 +78,12 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+# InfluxDB settings
+INFLUX_URL = os.environ["INFLUX_URL"]
+INFLUX_ORG = os.environ["INFLUX_ORG"]
+INFLUX_TOKEN = os.environ["INFLUX_TOKEN"]
+INFLUX_BUCKET = os.environ["INFLUX_BUCKET"]
 
 
 # Password validation
