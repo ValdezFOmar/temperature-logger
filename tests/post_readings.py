@@ -6,7 +6,6 @@ import argparse
 import os
 import random
 from datetime import date, datetime, timedelta
-from pprint import pprint
 
 import requests
 from dotenv import load_dotenv
@@ -55,8 +54,8 @@ def generate_fake_data(number_readings=10):
     return json_data
 
 
-def fake_data_multiple_dates(number_dates, number_readings=10):
-    dates = []
+def fake_data_multiple_dates(number_dates: int, number_readings=10):
+    dates: list[dict] = []
     time_difference = timedelta(minutes=2)
 
     for _ in range(number_dates):

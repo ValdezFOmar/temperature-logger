@@ -11,7 +11,7 @@ profile = "django"
 files = [
     "src/temperature_logger/templates/",
 ]
-ignore = "H030,H031"
+ignore = "H006,H030,H031"
 close_void_tags = true
 indent = 2
 max_blank_lines = 2
