@@ -1,12 +1,12 @@
 {% extends "master.html" %}
 
 {% block title %}
-  Temperature Chart for {{ selected_date.date|date:"M dS, Y" }}
+  Temperature Chart for {{ selected_date.date|date:"M jS, Y" }}
 {% endblock title %}
 
 {% block content %}
   <main>
-    <h1>Temperature Chart for {{ selected_date.date|date:"F dS, Y" }}</h1>
+    <h1>Temperature Chart for {{ selected_date.date|date:"F jS, Y" }}</h1>
     <nav>
       <a href="{% url 'home' %}">Home</a>
     </nav>

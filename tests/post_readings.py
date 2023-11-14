@@ -10,9 +10,6 @@ from datetime import date, datetime, timedelta
 import requests
 from dotenv import load_dotenv
 
-CURRENT_YEAR = datetime.now().year
-PAST_YEAR = CURRENT_YEAR - 1
-
 
 def random_range(start, end):
     return random.random() * (end - start) + start
@@ -22,15 +19,17 @@ def random_temperature():
     return round(random_range(-10, 40), 2)
 
 
-def random_datetime(min_year=PAST_YEAR, max_year=CURRENT_YEAR):
-    start = datetime(min_year, 1, 1, 00, 00, 00)
-    years = max_year - min_year + 1
-    end = start + timedelta(days=365 * years)
+def random_datetime(start: datetime | None = None, end: datetime | None = None):
+    if start is None:
+        start = datetime(1970, 1, 1)
+    if end is None:
+        end = datetime.now()
     return random_range(start, end)
 
 
 def generate_fake_data(number_readings=10):
-    r_datetime = random_datetime()
+    last_year_current_date = datetime.now() - timedelta(days=365)
+    r_datetime = random_datetime(start=last_year_current_date)
     date = r_datetime.date().isoformat()
     temperature_readings = []
 
@@ -57,9 +56,10 @@ def generate_fake_data(number_readings=10):
 def fake_data_multiple_dates(number_dates: int, number_readings=10):
     dates: list[dict] = []
     time_difference = timedelta(minutes=2)
+    last_year_current_date = datetime.now() - timedelta(days=365)
 
     for _ in range(number_dates):
-        r_datetime = random_datetime()
+        r_datetime = random_datetime(start=last_year_current_date)
         new_time = r_datetime
         readings = []
 

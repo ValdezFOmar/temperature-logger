@@ -1,4 +1,4 @@
-import time
+from datetime import datetime
 
 from django.conf import settings
 from influxdb_client import InfluxDBClient, Point
@@ -14,27 +14,35 @@ SUCCESS_RESPONSE = {"response": "Successfully resgistered"}
 
 def data_dict_to_points(data: dict):
     readings = data["readings"]
+    date = data["date"]
 
-    points = (
-        Point("weather")
-        .tag("location", "Tijuana")
-        .field("temperature", reading["temperature"])
-        for reading in readings
-    )
-    return points
+    for reading in readings:
+        time_field = reading["time"]
+        _time = datetime(
+            **date,
+            hour=time_field["hour"],
+            minute=time_field["minutes"],
+            second=time_field["seconds"]
+        )
+        yield (
+            Point("weather")
+            .tag("location", "Tijuana")
+            .field("temperature", reading["temperature"])
+            .time(_time)
+        )
 
 
 def save_to_influxdb(data):
     point_series = (data_dict_to_points(date) for date in data)
 
     with InfluxDBClient(
-        url=settings.INFLUX_URL, org=settings.INFLUX_ORG, token=settings.INFLUX_TOKEN
+        url=settings.INFLUX_URL,
+        org=settings.INFLUX_ORG,
+        token=settings.INFLUX_TOKEN,
     ) as client:
         with client.write_api(write_options=ASYNCHRONOUS) as write_api:
             for series in point_series:
-                for point in series:
-                    write_api.write(settings.INFLUX_BUCKET, settings.INFLUX_ORG, point)
-                    time.sleep(1)
+                write_api.write(settings.INFLUX_BUCKET, settings.INFLUX_ORG, series)
 
 
 @api_view(["POST"])
