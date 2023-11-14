@@ -5,14 +5,14 @@ Django backend for managing temperature readings from a microcontroler (Raspberr
 > Python `v3.11.5`
 
 
-# Run server
+## Run server
 
 ```sh
 python manage.py runserver
 ```
 
 
-# Database setup
+## Database setup
 
 Install mariadb and create a database like this:
 
@@ -32,4 +32,12 @@ Finally, add the appropriate credential to `src/.env`, migrate and create a supe
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
+```
+
+## Deploy
+
+Check for deployment settings.
+
+```sh
+python manage.py check --deploy
 ```

@@ -9,6 +9,10 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = False
 ALLOWED_HOSTS = ["pico.bonesware.tech", ".bonesware.tech", ".localhost", "127.0.0.1"]
 
+# Database
+CONN_MAX_AGE = 60 * 10  # 10 min
+CONN_HEALTH_CHECKS = True
+
 # HTTPS Settings
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
