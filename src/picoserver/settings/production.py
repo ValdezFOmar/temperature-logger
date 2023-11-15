@@ -7,7 +7,7 @@ from picoserver.settings.common import *
 
 SECRET_KEY = os.environ["SECRET_KEY"]
 DEBUG = False
-ALLOWED_HOSTS = ["pico.bonesware.tech", ".bonesware.tech", ".localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["pico.bonesware.tech", ".bonesware.tech"]
 
 # Database
 CONN_MAX_AGE = 60 * 10  # 10 min
